@@ -16,6 +16,7 @@ const isProjectPage = current === 'projects' || projects.some((project) => proje
 
 <BaseLayout title={`${title} · devBambu 기술 블로그`}>
   <div class="page-heading">
+    {isProjectPage && <a class="back-link" href="/">← 전체 글 목록으로</a>}
     <h1>{title}</h1>
     <p>{description}</p>
   </div>
