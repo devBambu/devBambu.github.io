@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate, postDate, projectName, typeNames } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={`${post.data.title} · devBambu 기술 블로그`}>
+  <article class="article-page">
+    <a class="back-link" href="/">← 전체 글로 돌아가기</a>
+    <div class="article-meta">
+      <span>{projectName(post.data.project)}</span>
+      <span aria-hidden="true">/</span>
+      <span>{post.data.type ? typeNames[post.data.type] : '일반'}</span>
+      {postDate(post) && <><span aria-hidden="true">/</span><time datetime={postDate(post)?.toISOString()}>{formatDate(postDate(post))}</time></>}
+    </div>
+    <div class="article-body"><Content /></div>
+    <div class="article-end"><span aria-hidden="true">✳</span><a href="/">다른 글 살펴보기 ↗</a></div>
+  </article>
+</BaseLayout>

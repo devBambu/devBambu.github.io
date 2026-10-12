@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate, postDate, postUrl, projects, sortedPosts, typeNames } from '../../lib/blog';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { project: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const posts = sortedPosts((await getCollection('blog')).filter((post) => post.data.project === project.id));
+---
+
+<BaseLayout title={`${project.name} · devBambu 기술 블로그`}>
+  <div class="page-heading">
+    <a class="back-link" href="/">← 전체 글로 돌아가기</a>
+    <p class="section-kicker">PROJECT / {project.id}</p>
+    <h1>{project.name}</h1>
+    <p>이 프로젝트에서 내린 결정과 해결한 문제, 개선한 내용을 모았습니다.</p>
+  </div>
+  <section class="section compact-section" aria-label={`${project.name} 글 목록`}>
+    {posts.length > 0 ? (
+      <div class="post-list">
+        {posts.map((post, index) => (
+          <a class="post-row" href={postUrl(post)}>
+            <span class="post-number">{String(index + 1).padStart(2, '0')}</span>
+            <span class="post-main">
+              <span class="post-meta">{post.data.type ? typeNames[post.data.type] : '일반'}</span>
+              <strong>{post.data.title}</strong>
+            </span>
+            <span class="post-date">{formatDate(postDate(post))}</span>
+            <span class="post-arrow" aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state"><span class="empty-icon" aria-hidden="true">✳</span><p>아직 공개한 글이 없습니다.</p></div>
+    )}
+  </section>
+</BaseLayout>
