@@ -20,19 +20,15 @@ const { title, description = '개발 과정에서 내린 선택과 해결 과정
   <body>
     <div class="site-shell">
       <header class="site-header">
-        <a class="brand" href="/" aria-label="devBambu 기술 블로그 홈">
-          <span class="brand-mark" aria-hidden="true">b.</span>
-          <span class="brand-text">devBambu <small>기술 블로그</small></span>
-        </a>
+        <a class="brand" href="/" aria-label="devBambu 기술 블로그 글 목록">devBambu <small>기술 블로그</small></a>
         <nav aria-label="주요 메뉴">
-          <a href="/#articles">글 목록</a>
-          <a href="/#projects">프로젝트</a>
+          <a href="/">글 목록</a>
         </nav>
       </header>
       <main><slot /></main>
       <footer class="site-footer">
-        <span>devBambu · 기술을 선택하고 고친 이유를 기록합니다.</span>
-        <a href="https://github.com/devBambu" rel="me">GitHub ↗</a>
+        <span>© devBambu</span>
+        <a href="https://github.com/devBambu" rel="me">GitHub</a>
       </footer>
     </div>
   </body>

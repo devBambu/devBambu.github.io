@@ -14,7 +14,7 @@ const { Content } = await render(post);
 
 <BaseLayout title={`${post.data.title} · devBambu 기술 블로그`}>
   <article class="article-page">
-    <a class="back-link" href="/">← 전체 글로 돌아가기</a>
+    <a class="back-link" href="/">← 글 목록</a>
     <div class="article-meta">
       <span>{projectName(post.data.project)}</span>
       <span aria-hidden="true">/</span>
@@ -22,6 +22,6 @@ const { Content } = await render(post);
       {postDate(post) && <><span aria-hidden="true">/</span><time datetime={postDate(post)?.toISOString()}>{formatDate(postDate(post))}</time></>}
     </div>
     <div class="article-body"><Content /></div>
-    <div class="article-end"><span aria-hidden="true">✳</span><a href="/">다른 글 살펴보기 ↗</a></div>
+    <div class="article-end"><a href="/">← 글 목록으로 돌아가기</a></div>
   </article>
 </BaseLayout>
