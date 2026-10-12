@@ -52,7 +52,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .article-body code:not(pre code) { padding: 2px 4px; background: #f4f6f4; font-size: .9em; }
 .article-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 14px; }
 .article-body th, .article-body td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; }
-.article-end { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; }
+.article-end { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; }
 .article-end a { color: var(--accent); }
 
 @media (max-width: 600px) {

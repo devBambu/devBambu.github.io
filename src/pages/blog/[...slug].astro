@@ -10,11 +10,13 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const parentUrl = post.data.project === 'general' ? '/general/' : `/projects/${post.data.project}/`;
+const parentName = post.data.project === 'general' ? '자유' : projectName(post.data.project);
 ---
 
 <BaseLayout title={`${post.data.title} · devBambu 기술 블로그`}>
-  <article class="article-page">
-    <a class="back-link" href="/">← 글 목록</a>
+  <article class="article-page" id="top">
+    <a class="back-link" href={parentUrl}>← {parentName} 글 목록</a>
     <div class="article-meta">
       <span>{projectName(post.data.project)}</span>
       <span aria-hidden="true">/</span>
@@ -22,6 +24,9 @@ const { Content } = await render(post);
       {postDate(post) && <><span aria-hidden="true">/</span><time datetime={postDate(post)?.toISOString()}>{formatDate(postDate(post))}</time></>}
     </div>
     <div class="article-body"><Content /></div>
-    <div class="article-end"><a href="/">← 글 목록으로 돌아가기</a></div>
+    <div class="article-end">
+      <a href={parentUrl}>← {parentName} 글 목록으로 돌아가기</a>
+      <a href="#top">↑ 맨 위로</a>
+    </div>
   </article>
 </BaseLayout>
