@@ -19,13 +19,16 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .brand { font-size: 19px; font-weight: 750; letter-spacing: -.04em; }
 .brand small { margin-left: 9px; color: var(--muted); font-size: 12px; font-weight: 400; letter-spacing: 0; }
 .site-header nav, .site-footer { color: var(--muted); font-size: 13px; }
-.site-header nav a:hover, .site-footer a:hover, .back-link:hover, .project-nav a:hover { color: var(--accent); }
+.site-header nav a:hover, .site-footer a:hover, .back-link:hover, .category-nav a:hover { color: var(--accent); }
 
 .page-heading { padding: 64px 0 32px; }
 .page-heading h1 { margin: 0 0 14px; font-size: 32px; line-height: 1.3; letter-spacing: -.045em; }
 .page-heading p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
-.project-nav { display: flex; flex-wrap: wrap; gap: 22px; padding: 0 0 20px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 14px; }
-.project-nav .current { color: var(--accent); font-weight: 700; }
+.category-nav { padding-bottom: 20px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+.category-nav-main, .category-nav-projects { display: flex; flex-wrap: wrap; gap: 22px; }
+.category-nav-main { font-weight: 650; }
+.category-nav-projects { margin-top: 14px; padding-left: 20px; font-size: 13px; }
+.category-nav .current { color: var(--accent); font-weight: 700; }
 .post-list { min-height: 280px; }
 .post-row { display: grid; grid-template-columns: 110px 1fr; column-gap: 24px; row-gap: 7px; padding: 25px 0; border-bottom: 1px solid var(--line); }
 .post-row:hover .post-title { color: var(--accent); }
@@ -60,7 +63,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .brand small { font-size: 11px; }
   .page-heading { padding-top: 46px; }
   .page-heading h1 { font-size: 28px; }
-  .project-nav { gap: 16px; font-size: 13px; }
+  .category-nav-main, .category-nav-projects { gap: 16px; }
   .post-row { grid-template-columns: 1fr; row-gap: 7px; }
   .post-row time { grid-row: auto; }
   .post-title { font-size: 17px; }

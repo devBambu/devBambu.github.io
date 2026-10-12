@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { formatDate, postDate, postUrl, projects, sortedPosts, typeNames } from '../../lib/blog';
+import BlogListing from '../../components/BlogListing.astro';
+import { projects, sortedPosts } from '../../lib/blog';
 
 export function getStaticPaths() {
   return projects.map((project) => ({ params: { project: project.id }, props: { project } }));
@@ -11,24 +11,4 @@ const { project } = Astro.props;
 const posts = sortedPosts((await getCollection('blog')).filter((post) => post.data.project === project.id));
 ---
 
-<BaseLayout title={`${project.name} · devBambu 기술 블로그`}>
-  <div class="page-heading">
-    <h1>{project.name}</h1>
-    <p>{project.name} 프로젝트의 개발 기록입니다.</p>
-  </div>
-
-  <nav class="project-nav" aria-label="프로젝트별 글 보기">
-    <a href="/">전체</a>
-    {projects.map((item) => <a class={item.id === project.id ? 'current' : undefined} aria-current={item.id === project.id ? 'page' : undefined} href={`/projects/${item.id}/`}>{item.name}</a>)}
-  </nav>
-
-  <section class="post-list" aria-label={`${project.name} 글 목록`}>
-    {posts.length > 0 ? posts.map((post) => (
-      <a class="post-row" href={postUrl(post)}>
-        <time datetime={postDate(post)?.toISOString()}>{formatDate(postDate(post))}</time>
-        <span class="post-title">{post.data.title}</span>
-        <span class="post-meta">{post.data.type ? typeNames[post.data.type] : '일반'}</span>
-      </a>
-    )) : <p class="empty-state">아직 공개한 글이 없습니다.</p>}
-  </section>
-</BaseLayout>
+<BlogListing title={project.name} description={`${project.name} 프로젝트의 개발 기록입니다.`} posts={posts} current={project.id} />

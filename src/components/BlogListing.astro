@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatDate, postDate, postUrl, projectName, projects, typeNames } from '../lib/blog';
+
+interface Props {
+  title: string;
+  description: string;
+  posts: CollectionEntry<'blog'>[];
+  current: string;
+}
+
+const { title, description, posts, current } = Astro.props;
+---
+
+<BaseLayout title={`${title} · devBambu 기술 블로그`}>
+  <div class="page-heading">
+    <h1>{title}</h1>
+    <p>{description}</p>
+  </div>
+
+  <nav class="category-nav" aria-label="글 분류">
+    <div class="category-nav-main">
+      <a class={current === 'all' ? 'current' : undefined} aria-current={current === 'all' ? 'page' : undefined} href="/">전체</a>
+      <a class={current === 'projects' || projects.some((project) => project.id === current) ? 'current' : undefined} aria-current={current === 'projects' ? 'page' : undefined} href="/projects/">프로젝트</a>
+      <a class={current === 'general' ? 'current' : undefined} aria-current={current === 'general' ? 'page' : undefined} href="/general/">자유</a>
+    </div>
+    <div class="category-nav-projects" aria-label="프로젝트">
+      {projects.map((project) => <a class={current === project.id ? 'current' : undefined} aria-current={current === project.id ? 'page' : undefined} href={`/projects/${project.id}/`}>{project.name}</a>)}
+    </div>
+  </nav>
+
+  <section class="post-list" aria-label={`${title} 글 목록`}>
+    {posts.length > 0 ? posts.map((post) => (
+      <a class="post-row" href={postUrl(post)}>
+        <time datetime={postDate(post)?.toISOString()}>{formatDate(postDate(post))}</time>
+        <span class="post-title">{post.data.title}</span>
+        <span class="post-meta">{projectName(post.data.project)}{post.data.type ? ` · ${typeNames[post.data.type]}` : ''}</span>
+      </a>
+    )) : <p class="empty-state">아직 공개한 글이 없습니다.</p>}
+  </section>
+</BaseLayout>

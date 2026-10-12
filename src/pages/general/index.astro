@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import BlogListing from '../../components/BlogListing.astro';
+import { sortedPosts } from '../../lib/blog';
+
+const posts = sortedPosts((await getCollection('blog')).filter((post) => post.data.project === 'general'));
+---
+
+<BlogListing title="자유" description="프로젝트와 별개로 정리한 기술 이야기입니다." posts={posts} current="general" />

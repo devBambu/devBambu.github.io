@@ -1,29 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { formatDate, postDate, postUrl, projectName, projects, sortedPosts, typeNames } from '../lib/blog';
+import BlogListing from '../components/BlogListing.astro';
+import { sortedPosts } from '../lib/blog';
 
 const posts = sortedPosts(await getCollection('blog'));
 ---
 
-<BaseLayout title="devBambu 기술 블로그">
-  <div class="page-heading">
-    <h1>글 목록</h1>
-    <p>개발하면서 내린 결정과 해결한 문제를 기록합니다.</p>
-  </div>
-
-  <nav class="project-nav" aria-label="프로젝트별 글 보기">
-    <a class="current" aria-current="page" href="/">전체</a>
-    {projects.map((project) => <a href={`/projects/${project.id}/`}>{project.name}</a>)}
-  </nav>
-
-  <section class="post-list" aria-label="전체 글 목록">
-    {posts.length > 0 ? posts.map((post) => (
-      <a class="post-row" href={postUrl(post)}>
-        <time datetime={postDate(post)?.toISOString()}>{formatDate(postDate(post))}</time>
-        <span class="post-title">{post.data.title}</span>
-        <span class="post-meta">{projectName(post.data.project)} · {post.data.type ? typeNames[post.data.type] : '일반'}</span>
-      </a>
-    )) : <p class="empty-state">아직 공개한 글이 없습니다.</p>}
-  </section>
-</BaseLayout>
+<BlogListing title="글 목록" description="개발하면서 내린 결정과 해결한 문제를 기록합니다." posts={posts} current="all" />

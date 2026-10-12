@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import BlogListing from '../../components/BlogListing.astro';
+import { sortedPosts } from '../../lib/blog';
+
+const posts = sortedPosts((await getCollection('blog')).filter((post) => post.data.project !== 'general'));
+---
+
+<BlogListing title="프로젝트" description="프로젝트에서 내린 결정과 해결한 문제를 모았습니다." posts={posts} current="projects" />

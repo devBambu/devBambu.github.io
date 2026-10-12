@@ -13,7 +13,7 @@ export const typeNames: Record<string, string> = {
 };
 
 export function projectName(id: string): string {
-  return projects.find((project) => project.id === id)?.name ?? '일반';
+  return projects.find((project) => project.id === id)?.name ?? '자유';
 }
 
 export function postDate(post: CollectionEntry<'blog'>): Date | undefined {
