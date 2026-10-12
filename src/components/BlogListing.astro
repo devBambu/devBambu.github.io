@@ -21,14 +21,13 @@ const isProjectPage = current === 'projects' || projects.some((project) => proje
   </div>
 
   <nav class="category-nav" aria-label="글 분류">
-    <div class="category-nav-main">
-      <a class={current === 'all' ? 'current' : undefined} aria-current={current === 'all' ? 'page' : undefined} href="/">전체</a>
-      <a class={isProjectPage ? 'current' : undefined} aria-current={current === 'projects' ? 'page' : undefined} href="/projects/">프로젝트</a>
-      <a class={current === 'general' ? 'current' : undefined} aria-current={current === 'general' ? 'page' : undefined} href="/general/">자유</a>
-    </div>
-    {isProjectPage && <div class="category-nav-projects" aria-label="프로젝트">
+    {isProjectPage ? <div class="category-nav-main">
       <a class={current === 'projects' ? 'current' : undefined} aria-current={current === 'projects' ? 'page' : undefined} href="/projects/">전체 프로젝트</a>
       {projects.map((project) => <a class={current === project.id ? 'current' : undefined} aria-current={current === project.id ? 'page' : undefined} href={`/projects/${project.id}/`}>{project.name}</a>)}
+    </div> : <div class="category-nav-main">
+      <a class={current === 'all' ? 'current' : undefined} aria-current={current === 'all' ? 'page' : undefined} href="/">전체</a>
+      <a href="/projects/">프로젝트</a>
+      <a class={current === 'general' ? 'current' : undefined} aria-current={current === 'general' ? 'page' : undefined} href="/general/">자유</a>
     </div>}
   </nav>
 
